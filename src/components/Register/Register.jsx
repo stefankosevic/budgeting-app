@@ -19,11 +19,14 @@ const Register = ({ changeActiveTab }) => {
       return;
     }
 
-    const { data } = await axios.post("http://localhost:5001/user/api", {
-      ime: fullName,
-      email: email,
-      password: password,
-    });
+    const { data } = await axios.post(
+      process.env.REACT_APP_API_URL + "/user/api",
+      {
+        ime: fullName,
+        email: email,
+        password: password,
+      }
+    );
 
     // TODO: Jos malo
     if (data.success === true) {

@@ -21,7 +21,7 @@ const Login = ({ changeActiveTab, client }) => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:5001/user/api/login",
+        process.env.REACT_APP_API_URL + "/user/api/login",
         {
           email: email,
           password: password,
@@ -29,6 +29,7 @@ const Login = ({ changeActiveTab, client }) => {
       );
 
       localStorage.setItem("userId", data.data._id);
+      localStorage.setItem("name", data.data.ime);
 
       console.log(data);
       if (data.success) {
