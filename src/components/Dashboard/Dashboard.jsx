@@ -2,22 +2,27 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Dashboard.module.css";
 import DashboardTab from "./DashboardTab";
-
-const TABS = {
-  DASHBOARD: "Dashboard",
-  INCOMES: "Incomes",
-  EXPENSES: "Expenses",
-};
+import MoneyDashboard from "../MoneyDashboard/MoneyDashboard";
+import { TABS } from "../../lib/constants/tabs";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(TABS.DASHBOARD);
+  const [incomeDropdownOpen, setIncomeDropdownOpen] = useState(false);
+  const [expenseDropdownOpen, setExpenseDropdownOpen] = useState(false);
 
   const logout = () => {
     localStorage.removeItem("userId");
     navigate("/");
   };
 
+  const toggleIncomeDropdown = (tab) => {
+    setIncomeDropdownOpen(!incomeDropdownOpen);
+  };
+
+  const toggleExpenseDropdown = (tab) => {
+    setExpenseDropdownOpen(!expenseDropdownOpen);
+  };
   useEffect(() => {
     if (!localStorage.getItem("userId")) return navigate("/");
   });
@@ -47,45 +52,139 @@ const Dashboard = () => {
                 {activeTab === TABS.DASHBOARD && (
                   <div className={styles.ActiveBar} />
                 )}
-                <i class="fa-solid fa-chart-line"></i>
+                <i className="fa-solid fa-chart-line"></i>
                 <div className={styles.MenuItemText}>{TABS.DASHBOARD}</div>
               </li>
               <li
                 className={`${styles.MenuItem} ${
-                  activeTab === TABS.INCOMES && styles.MenuItemActive
+                  (activeTab === TABS.MONTHLY_INCOME ||
+                    activeTab === TABS.ONE_TIME_INCOME) &&
+                  styles.MenuItemActive
                 }`}
-                onClick={() => setActiveTab(TABS.INCOMES)}
               >
-                {activeTab === TABS.INCOMES && (
+                {(activeTab === TABS.MONTHLY_INCOME ||
+                  activeTab === TABS.ONE_TIME_INCOME) && (
                   <div className={styles.ActiveBar} />
                 )}
-                <i class="fa-solid fa-money-bill-trend-up"></i>
-                <div className={styles.MenuItemText}>{TABS.INCOMES}</div>
+                <i
+                  style={{ alignSelf: "flex-start", marginTop: "5px" }}
+                  className="fa-solid fa-money-bill-trend-up"
+                ></i>
+                <div className={styles.MenuItemText}>
+                  <span onClick={() => toggleIncomeDropdown(TABS.INCOMES)}>
+                    Income
+                  </span>
+                  {incomeDropdownOpen && (
+                    <>
+                      <div
+                        onClick={() => setActiveTab(TABS.MONTHLY_INCOME)}
+                        style={{
+                          color:
+                            activeTab === TABS.MONTHLY_INCOME
+                              ? "black"
+                              : "rgba(34, 34, 96, 0.6)",
+                        }}
+                      >
+                        <i
+                          style={{
+                            marginRight: "8px",
+                          }}
+                          class="fa-regular fa-circle-dot"
+                        ></i>
+                        Monthly
+                      </div>
+                      <div
+                        onClick={() => setActiveTab(TABS.ONE_TIME_INCOME)}
+                        style={{
+                          color:
+                            activeTab === TABS.ONE_TIME_INCOME
+                              ? "black"
+                              : "rgba(34, 34, 96, 0.6)",
+                        }}
+                      >
+                        <i
+                          style={{ marginRight: "8px" }}
+                          class="fa-regular fa-circle-dot"
+                        ></i>
+                        One time
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                <div></div>
               </li>
               <li
                 className={`${styles.MenuItem} ${
-                  activeTab === TABS.EXPENSES && styles.MenuItemActive
+                  (activeTab === TABS.MONTHLY_EXPENSE ||
+                    activeTab === TABS.ONE_TIME_EXPENSE) &&
+                  styles.MenuItemActive
                 }`}
-                onClick={() => setActiveTab(TABS.EXPENSES)}
               >
-                {activeTab === TABS.EXPENSES && (
+                {(activeTab === TABS.MONTHLY_EXPENSE ||
+                  activeTab === TABS.ONE_TIME_EXPENSE) && (
                   <div className={styles.ActiveBar} />
                 )}
-                <i class="fa-solid fa-money-bill-transfer"></i>
-                <div className={styles.MenuItemText}>{TABS.EXPENSES}</div>
+                <i
+                  style={{ alignSelf: "flex-start", marginTop: "5px" }}
+                  className="fa-solid fa-money-bill-transfer"
+                ></i>
+                <div className={styles.MenuItemText}>
+                  <span onClick={() => toggleExpenseDropdown(TABS.EXPENSES)}>
+                    Expenses
+                  </span>
+                  {expenseDropdownOpen && (
+                    <>
+                      <div
+                        onClick={() => setActiveTab(TABS.MONTHLY_EXPENSE)}
+                        style={{
+                          color:
+                            activeTab === TABS.MONTHLY_EXPENSE
+                              ? "black"
+                              : "rgba(34, 34, 96, 0.6)",
+                        }}
+                      >
+                        <i
+                          style={{ marginRight: "8px" }}
+                          class="fa-regular fa-circle-dot"
+                        ></i>
+                        Monthly
+                      </div>
+                      <div
+                        onClick={() => setActiveTab(TABS.ONE_TIME_EXPENSE)}
+                        style={{
+                          color:
+                            activeTab === TABS.ONE_TIME_EXPENSE
+                              ? "black"
+                              : "rgba(34, 34, 96, 0.6)",
+                        }}
+                      >
+                        <i
+                          style={{ marginRight: "8px" }}
+                          class="fa-regular fa-circle-dot"
+                        ></i>
+                        One time
+                      </div>
+                    </>
+                  )}
+                </div>
               </li>
             </ul>
           </div>
 
           <div className={styles.MenuItem} style={{ justifySelf: "flex-end" }}>
-            <i class="fa-solid fa-right-from-bracket"></i>
+            <i className="fa-solid fa-right-from-bracket"></i>
             <div className={styles.MenuItemText} onClick={logout}>
               Logout
             </div>
           </div>
         </div>
 
-        <DashboardTab tabName={activeTab} />
+        {activeTab === TABS.DASHBOARD ? (
+          <DashboardTab tabName={activeTab} />
+        ) : (
+          <MoneyDashboard tabName={activeTab} />
+        )}
       </div>
     </div>
   );
