@@ -19,9 +19,9 @@ const FormMoney = ({ type, addBar, tabName }) => {
       title: title,
       amount: amount,
       date: date,
-      balanceId: `${Math.random()}`,
       userId: localStorage.getItem("userId"),
       type: tabName,
+      timestamp: new Date(),
     });
   };
 

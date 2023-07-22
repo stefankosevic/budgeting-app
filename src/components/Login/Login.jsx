@@ -31,7 +31,6 @@ const Login = ({ changeActiveTab, client }) => {
       localStorage.setItem("userId", data.data._id);
       localStorage.setItem("name", data.data.ime);
 
-      console.log(data);
       if (data.success) {
         navigate("/dashboard");
         return;

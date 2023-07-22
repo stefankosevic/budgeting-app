@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import { useNavigate } from "react-router-dom";
-// import Dashboard from "./components/Dashboard/Dashboard";
 
 function App() {
   const [isLogin, setIsLogin] = useState(true);

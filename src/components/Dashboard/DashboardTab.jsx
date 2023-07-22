@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Dashboard.module.css";
 import BalanceBox from "../BalanceBox/BalanceBox";
 import Bar from "../Bar/Bar";
+import axios from "axios";
+import { TABS } from "../../lib/constants/tabs";
 
 export const BALANCE_TYPES = {
   INCOME: "Income",
@@ -9,7 +11,53 @@ export const BALANCE_TYPES = {
   BALANCE: "Balance",
 };
 
-const DashboardTab = ({ tabName }) => {
+const BALANCE_TAB_TYPE = {
+  [TABS.MONTHLY_EXPENSE]: BALANCE_TYPES.EXPENSE,
+  [TABS.ONE_TIME_EXPENSE]: BALANCE_TYPES.EXPENSE,
+  [TABS.MONTHLY_INCOME]: BALANCE_TYPES.INCOME,
+  [TABS.ONE_TIME_INCOME]: BALANCE_TYPES.INCOME,
+};
+
+const DashboardTab = ({ tabName, total, incomeExpense }) => {
+  const [recentBalances, setRecentBalances] = useState([]);
+  const [totalMinMax, setTotalMinMax] = useState({});
+
+  useEffect(() => {
+    const getRecentBalances = async () => {
+      const { data } = await axios.get(
+        "http://localhost:5001/user/api/balance/recent"
+      );
+      setRecentBalances(data.data);
+    };
+    getRecentBalances();
+  }, []);
+
+  useEffect(() => {
+    let minIncome = 0;
+    let maxIncome = 0;
+    let minExpense = 0;
+    let maxExpense = 0;
+
+    incomeExpense.incomes?.forEach((income) => {
+      if (income.type === TABS.MONTHLY_INCOME) minIncome += +income.amount;
+      if (income.type === TABS.ONE_TIME_INCOME) maxIncome += +income.amount;
+    });
+    maxIncome += minIncome;
+
+    incomeExpense.expenses?.forEach((expense) => {
+      if (expense.type === TABS.MONTHLY_EXPENSE) minExpense += +expense.amount;
+      if (expense.type === TABS.ONE_TIME_EXPENSE) maxExpense += +expense.amount;
+    });
+    maxExpense += minExpense;
+
+    setTotalMinMax({
+      minIncome,
+      maxIncome,
+      minExpense,
+      maxExpense,
+    });
+  }, [incomeExpense]);
+
   return (
     <div
       className={styles.MenuWrapper}
@@ -34,10 +82,13 @@ const DashboardTab = ({ tabName }) => {
           }}
         >
           <div className={styles.BalanceBoxWrapper}>
-            <BalanceBox type={BALANCE_TYPES.INCOME} />
-            <BalanceBox type={BALANCE_TYPES.EXPENSE} />
+            <BalanceBox type={BALANCE_TYPES.INCOME} total={total.totalIncome} />
+            <BalanceBox
+              type={BALANCE_TYPES.EXPENSE}
+              total={total.totalExpense}
+            />
           </div>
-          <BalanceBox type={BALANCE_TYPES.BALANCE} />
+          <BalanceBox type={BALANCE_TYPES.BALANCE} total={total.balance} />
         </div>
       </div>
       <div className={styles.RightWrapper}>
@@ -45,21 +96,13 @@ const DashboardTab = ({ tabName }) => {
           <div style={{ fontSize: "24px", fontWeight: "bold" }}>
             Recent History
           </div>
-          <Bar
-            leftSide={"Dentist Appointment"}
-            rightSide={"-120 din"}
-            type={BALANCE_TYPES.EXPENSE}
-          />
-          <Bar
-            leftSide={"Traveling"}
-            rightSide={"-3000 din"}
-            type={BALANCE_TYPES.EXPENSE}
-          />
-          <Bar
-            leftSide={"From Freelance"}
-            rightSide={"+1300 din"}
-            type={BALANCE_TYPES.INCOME}
-          />
+          {recentBalances.map((recent) => (
+            <Bar
+              leftSide={recent.title}
+              rightSide={recent.amount}
+              type={BALANCE_TAB_TYPE[recent.type]}
+            />
+          ))}
         </div>
 
         <div style={{ marginTop: "12px" }}>
@@ -76,8 +119,8 @@ const DashboardTab = ({ tabName }) => {
             <div>max</div>
           </div>
           <Bar
-            leftSide={"din 1200"}
-            rightSide={"din 8000"}
+            leftSide={`din ${totalMinMax.minIncome}`}
+            rightSide={`din ${totalMinMax.maxIncome}`}
             type={BALANCE_TYPES.BALANCE}
           />
         </div>
@@ -96,8 +139,8 @@ const DashboardTab = ({ tabName }) => {
             <div>max</div>
           </div>
           <Bar
-            leftSide={"din 1200"}
-            rightSide={"din 8000"}
+            leftSide={`din ${totalMinMax.minExpense}`}
+            rightSide={`din ${totalMinMax.maxExpense}`}
             type={BALANCE_TYPES.BALANCE}
           />
         </div>

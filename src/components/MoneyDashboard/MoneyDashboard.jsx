@@ -15,25 +15,26 @@ const dashboardTitle = {
 
 const MoneyDashboard = ({ tabName }) => {
   const [bars, setBars] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const addBar = async (newBar) => {
     setBars([...bars, newBar]);
 
-    const { data } = await axios.post(
-      process.env.REACT_APP_API_URL + "/user/api/balance",
-      newBar
-    );
-    console.log(data);
+    await axios.post("http://localhost:5001/user/api/balance", newBar);
   };
 
-  const deleteBar = (barId) => {
+  const deleteBar = async (barId) => {
     const oldBars = [...bars];
-    const newBars = oldBars.filter((bar) => bar.id !== barId);
+    const newBars = oldBars.filter((bar) => bar._id !== barId);
+    await axios.post("http://localhost:5001/user/api/balance/delete", {
+      id: barId,
+    });
     setBars([...newBars]);
   };
 
   useEffect(() => {
     const getBalances = async () => {
+      setLoading(true);
       const { data } = await axios.get(
         process.env.REACT_APP_API_URL + "/user/api/balance",
         {
@@ -43,12 +44,19 @@ const MoneyDashboard = ({ tabName }) => {
           },
         }
       );
-      console.log(data);
+
       setBars(data.data);
+      setLoading(false);
     };
 
     getBalances();
   }, [tabName]);
+
+  const getTotal = () => {
+    let result = 0;
+    bars.forEach((bar) => (result += Number(bar.amount)));
+    return result;
+  };
 
   return (
     <div
@@ -69,7 +77,16 @@ const MoneyDashboard = ({ tabName }) => {
         }}
       >
         Total {dashboardTitle[tabName]?.toLowerCase()}:
-        <span style={{ color: "green", marginLeft: "4px" }}> din 16500</span>
+        <span
+          style={{
+            color: dashboardTitle[tabName].toLowerCase().includes("expense")
+              ? "red"
+              : "green",
+            marginLeft: "4px",
+          }}
+        >
+          {!loading ? `din ${getTotal()}` : ""}
+        </span>
       </div>
       <div style={{ display: "flex", gap: "1rem", marginTop: "16px" }}>
         <div style={{ width: "40%" }}>
@@ -79,7 +96,7 @@ const MoneyDashboard = ({ tabName }) => {
             addBar={addBar}
           />
         </div>
-        {bars.length ? (
+        {bars.length && !loading ? (
           <div style={{ width: "100%" }}>
             {bars.map((bar) => (
               <MoneyBar
@@ -90,6 +107,7 @@ const MoneyDashboard = ({ tabName }) => {
             ))}
           </div>
         ) : null}
+        {loading && <div>Loading...</div>}
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./BalanceBox.module.css";
 import { BALANCE_TYPES } from "../Dashboard/DashboardTab";
 
-const BalanceBox = ({ type }) => {
+const BalanceBox = ({ type, total }) => {
   return (
     <div
       className={styles.BalanceBoxWrapper}
@@ -13,14 +13,14 @@ const BalanceBox = ({ type }) => {
         className={styles.BalanceCash}
         style={{
           color:
-            type === BALANCE_TYPES.BALANCE
+            type === BALANCE_TYPES.BALANCE && total > 0
               ? "#42AD00"
-              : type === BALANCE_TYPES.EXPENSE
+              : type === BALANCE_TYPES.EXPENSE || total < 0
               ? "red"
               : "#42AD00",
         }}
       >
-        din 16500
+        din {total}
       </div>
     </div>
   );

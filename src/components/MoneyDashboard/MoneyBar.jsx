@@ -1,7 +1,7 @@
 import React from "react";
 import barStyles from "../Bar/Bar.module.css";
 
-const MoneyBar = ({ title, amount, date, id, deleteBar }) => {
+const MoneyBar = ({ title, amount, date, _id, deleteBar }) => {
   return (
     <div
       className={barStyles.BarWrapper}
@@ -47,7 +47,7 @@ const MoneyBar = ({ title, amount, date, id, deleteBar }) => {
             justifyContent: "center",
             cursor: "pointer",
           }}
-          onClick={() => deleteBar(id)}
+          onClick={() => deleteBar(_id)}
         >
           <i style={{ color: "white" }} className="fa-solid fa-trash"></i>
         </div>
