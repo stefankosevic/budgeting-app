@@ -39,7 +39,7 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 650px) {
+@media (max-width: 650px) {
   .ButtonsWrapper {
     flex-direction: column;
     justify-content: center;

@@ -26,7 +26,7 @@
   justify-content: space-between;
   overflow: scroll;
 
-  @media screen and (max-width: 800px) {
+  @media (max-width: 800px) {
     width: 100%;
   }
 }
@@ -94,7 +94,7 @@
   flex-direction: column;
   gap: 20px;
 
-  @media screen and (max-width: 800px) {
+  @media (max-width: 800px) {
     width: 100%;
   }
 }
@@ -107,25 +107,25 @@
 .RightWrapper {
   width: 45%;
 
-  @media screen and (max-width: 800px) {
+  @media (max-width: 800px) {
     width: 100%;
   }
 }
 
 .MenuItemMobile {
-  @media screen and (min-width: 640px) {
+  @media (min-width: 640px) {
     display: none;
   }
 }
 
 .MenuMobile {
-  @media screen and (max-width: 800px) {
+  @media (max-width: 800px) {
     width: 100% !important;
   }
 }
 
 .ColumnWrapper {
-  @media screen and (max-width: 800px) {
+  @media (max-width: 800px) {
     flex-direction: column !important;
   }
 }

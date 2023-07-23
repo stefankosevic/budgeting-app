@@ -14,7 +14,7 @@
   gap: 1rem;
   margin-top: 16px;
 
-  @media screen and (max-width: 800px) {
+  @media (max-width: 800px) {
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -22,7 +22,7 @@
 }
 
 .FormWrapper {
-  @media screen and (max-width: 800px) {
+  @media (max-width: 800px) {
     width: 100% !important;
   }
 }
