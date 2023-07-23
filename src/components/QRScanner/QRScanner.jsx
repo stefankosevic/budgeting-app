@@ -2,16 +2,20 @@ import React, { useEffect, useState } from "react";
 import { QrScanner } from "@yudiel/react-qr-scanner";
 import axios from "axios";
 import { TABS } from "../../lib/constants/tabs";
+import { useNavigate } from "react-router-dom";
 
 const QRScanner = () => {
   const [data, setData] = useState("No result");
   const [totalCash, setTotalCash] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!data.includes("http")) return;
 
     const getQRAmount = async () => {
       try {
+        setLoading(true);
         const { data: total } = await axios.get(
           process.env.REACT_APP_API_URL + "/user/api/scan",
           {
@@ -30,22 +34,26 @@ const QRScanner = () => {
           userId: localStorage.getItem("userId"),
           type: TABS.ONE_TIME_EXPENSE,
         });
+        setLoading(false);
+        navigate("/dashboard");
       } catch (err) {
         setTotalCash(err);
       }
     };
 
     getQRAmount();
-  }, [data]);
+  }, [data, navigate]);
 
   return (
     <>
-      <QrScanner
-        onDecode={(result) => {
-          setData(result);
-        }}
-        onError={(error) => console.log(error?.message)}
-      />
+      {!loading ? (
+        <QrScanner
+          onDecode={(result) => {
+            setData(result);
+          }}
+          onError={(error) => console.log(error?.message)}
+        />
+      ) : null}
       <p>{data}</p>
       <p>{totalCash}</p>
     </>
