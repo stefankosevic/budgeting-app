@@ -110,6 +110,7 @@ const DashboardTab = ({ setActiveTab, total, incomeExpense }) => {
           </div>
           {recentBalances.map((recent) => (
             <Bar
+              key={recent._id}
               leftSide={recent.title}
               rightSide={recent.amount}
               type={BALANCE_TAB_TYPE[recent.type]}

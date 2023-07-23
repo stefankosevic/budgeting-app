@@ -70,7 +70,7 @@ const Menu = ({ activeTab, setActiveTab }) => {
                       style={{
                         marginRight: "8px",
                       }}
-                      class="fa-regular fa-circle-dot"
+                      className="fa-regular fa-circle-dot"
                     ></i>
                     Monthly
                   </div>
@@ -85,7 +85,7 @@ const Menu = ({ activeTab, setActiveTab }) => {
                   >
                     <i
                       style={{ marginRight: "8px" }}
-                      class="fa-regular fa-circle-dot"
+                      className="fa-regular fa-circle-dot"
                     ></i>
                     One time
                   </div>
@@ -129,7 +129,7 @@ const Menu = ({ activeTab, setActiveTab }) => {
                   >
                     <i
                       style={{ marginRight: "8px" }}
-                      class="fa-regular fa-circle-dot"
+                      className="fa-regular fa-circle-dot"
                     ></i>
                     Monthly
                   </div>
@@ -144,7 +144,7 @@ const Menu = ({ activeTab, setActiveTab }) => {
                   >
                     <i
                       style={{ marginRight: "8px" }}
-                      class="fa-regular fa-circle-dot"
+                      className="fa-regular fa-circle-dot"
                     ></i>
                     One time
                   </div>
@@ -153,11 +153,8 @@ const Menu = ({ activeTab, setActiveTab }) => {
             </div>
           </li>
 
-          <li
-            className={`${styles.MenuItem} ${styles.MenuItemMobile}`}
-            // onClick={}
-          >
-            <i class="fa-solid fa-qrcode"></i>
+          <li className={`${styles.MenuItem} ${styles.MenuItemMobile}`}>
+            <i className="fa-solid fa-qrcode"></i>
             <div className={styles.MenuItemText}>ScanQR</div>
           </li>
         </ul>

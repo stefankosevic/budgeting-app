@@ -10,7 +10,7 @@ const DarkModeButton = ({ changeMode, isLightMode }) => {
       }}
     >
       <i
-        class="fa-solid fa-sun"
+        className="fa-solid fa-sun"
         style={{
           visibility: isLightMode && "hidden",
         }}
@@ -21,7 +21,7 @@ const DarkModeButton = ({ changeMode, isLightMode }) => {
           visibility: !isLightMode && "hidden",
           color: "white",
         }}
-        class="fa-solid fa-moon"
+        className="fa-solid fa-moon"
         onClick={changeMode}
       ></i>
     </div>
