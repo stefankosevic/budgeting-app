@@ -10,11 +10,14 @@ const QRScanner = () => {
     if (!data.includes("http")) return;
 
     try {
-      const { data: total } = axios.get("http://localhost:5001/user/api/scan", {
-        params: {
-          url: data,
-        },
-      });
+      const { data: total } = axios.get(
+        process.env.REACT_APP_API_URL + "/user/api/scan",
+        {
+          params: {
+            url: data,
+          },
+        }
+      );
       setTotalCash(total);
     } catch (err) {
       setTotalCash(err);
@@ -26,7 +29,6 @@ const QRScanner = () => {
       <QrScanner
         onDecode={(result) => {
           setData(result);
-          //   window.open(result);
         }}
         onError={(error) => console.log(error?.message)}
       />
