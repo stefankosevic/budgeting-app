@@ -39,12 +39,6 @@
   cursor: pointer;
 }
 
-.Button {
-  @media (max-width: 800px) {
-    width: 100%;
-  }
-}
-
 .LoginInvalid {
   color: red;
   font-weight: bold;
@@ -61,5 +55,9 @@
 
   .RegisterText {
     margin-top: 10px;
+  }
+
+  .Button {
+    width: 100%;
   }
 }

@@ -13,16 +13,16 @@
   display: flex;
   gap: 1rem;
   margin-top: 16px;
+}
 
-  @media (max-width: 800px) {
+@media (max-width: 800px) {
+  .ColumnWrapper {
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
-}
 
-.FormWrapper {
-  @media (max-width: 800px) {
+  .FormWrapper {
     width: 100% !important;
   }
 }

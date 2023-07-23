@@ -25,10 +25,6 @@
   gap: 2rem;
   justify-content: space-between;
   overflow: scroll;
-
-  @media (max-width: 800px) {
-    width: 100%;
-  }
 }
 
 .AvatarWrapper {
@@ -93,10 +89,6 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-
-  @media (max-width: 800px) {
-    width: 100%;
-  }
 }
 
 .BalanceBoxWrapper {
@@ -106,26 +98,29 @@
 
 .RightWrapper {
   width: 45%;
-
-  @media (max-width: 800px) {
-    width: 100%;
-  }
 }
 
-.MenuItemMobile {
-  @media (min-width: 640px) {
-    display: none;
+@media (max-width: 800px) {
+  .ColumnWrapper {
+    flex-direction: column !important;
   }
-}
-
-.MenuMobile {
-  @media (max-width: 800px) {
+  .MenuMobile {
     width: 100% !important;
   }
-}
 
-.ColumnWrapper {
-  @media (max-width: 800px) {
-    flex-direction: column !important;
+  .MenuItemMobile {
+    display: none;
+  }
+
+  .RightWrapper {
+    width: 100%;
+  }
+
+  .LeftWrapper {
+    width: 100%;
+  }
+
+  .MenuWrapper {
+    width: 100%;
   }
 }
