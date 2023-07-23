@@ -100,10 +100,7 @@ const MoneyDashboard = ({ tabName, setActiveTab }) => {
           {!loading ? `din ${getTotal()}` : ""}
         </span>
       </div>
-      <div
-        style={{ display: "flex", gap: "1rem", marginTop: "16px" }}
-        className={styles.ColumnWrapper}
-      >
+      <div className={styles.ColumnWrapper}>
         <div style={{ width: "40%" }} className={styles.FormWrapper}>
           <FormMoney
             type={dashboardTitle[tabName]}
