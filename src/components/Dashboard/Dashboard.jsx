@@ -79,9 +79,9 @@ const Dashboard = () => {
           />
         ) : activeTab !== TABS.DASHBOARD && activeTab ? (
           <MoneyDashboard tabName={activeTab} setActiveTab={setActiveTab} />
-        ) : (
+        ) : size.width < 800 ? (
           <Menu activeTab={activeTab} setActiveTab={setActiveTab} />
-        )}
+        ) : null}
       </div>
     </div>
   );
