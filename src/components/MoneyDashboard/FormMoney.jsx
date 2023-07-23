@@ -59,7 +59,7 @@ const FormMoney = ({ type, addBar, tabName }) => {
       />
       <Button
         variant="outlined"
-        className={loginStyles.LoginButton}
+        className={`${loginStyles.LoginButton} ${loginStyles.Button}`}
         type="submit"
       >
         Add

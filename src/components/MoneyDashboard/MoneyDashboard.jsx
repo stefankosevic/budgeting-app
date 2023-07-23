@@ -13,7 +13,7 @@ const dashboardTitle = {
   [TABS.ONE_TIME_INCOME]: "One time income",
 };
 
-const MoneyDashboard = ({ tabName }) => {
+const MoneyDashboard = ({ tabName, setActiveTab }) => {
   const [bars, setBars] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -63,6 +63,12 @@ const MoneyDashboard = ({ tabName }) => {
       className={`${styles.Wrapper} ${dashboardStyles.MenuWrapper}`}
       style={{ justifyContent: "flex-start", gap: 0 }}
     >
+      <div className={styles.BackButton} onClick={() => setActiveTab("")}>
+        <i
+          className="fa-solid fa-circle-arrow-left"
+          style={{ fontSize: "1.8rem" }}
+        ></i>
+      </div>
       <div style={{ fontSize: "24px", fontWeight: "bold" }}>
         {dashboardTitle[tabName]}
       </div>
@@ -88,8 +94,11 @@ const MoneyDashboard = ({ tabName }) => {
           {!loading ? `din ${getTotal()}` : ""}
         </span>
       </div>
-      <div style={{ display: "flex", gap: "1rem", marginTop: "16px" }}>
-        <div style={{ width: "40%" }}>
+      <div
+        style={{ display: "flex", gap: "1rem", marginTop: "16px" }}
+        className={styles.ColumnWrapper}
+      >
+        <div style={{ width: "40%" }} className={styles.FormWrapper}>
           <FormMoney
             type={dashboardTitle[tabName]}
             tabName={tabName}

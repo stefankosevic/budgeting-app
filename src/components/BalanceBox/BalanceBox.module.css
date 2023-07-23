@@ -11,9 +11,17 @@
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 8px;
+
+  @media screen and (max-width: 800px) {
+    font-size: 18px;
+  }
 }
 
 .BalanceCash {
   font-size: 30px;
   color: rgba(34, 34, 96, 0.6);
+
+  @media screen and (max-width: 800px) {
+    font-size: 18px;
+  }
 }

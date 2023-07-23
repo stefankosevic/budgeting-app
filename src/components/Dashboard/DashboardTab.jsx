@@ -4,6 +4,7 @@ import BalanceBox from "../BalanceBox/BalanceBox";
 import Bar from "../Bar/Bar";
 import axios from "axios";
 import { TABS } from "../../lib/constants/tabs";
+import tabStyles from "../MoneyDashboard/MoneyDashboard.module.css";
 
 export const BALANCE_TYPES = {
   INCOME: "Income",
@@ -18,7 +19,7 @@ const BALANCE_TAB_TYPE = {
   [TABS.ONE_TIME_INCOME]: BALANCE_TYPES.INCOME,
 };
 
-const DashboardTab = ({ tabName, total, incomeExpense }) => {
+const DashboardTab = ({ setActiveTab, total, incomeExpense }) => {
   const [recentBalances, setRecentBalances] = useState([]);
   const [totalMinMax, setTotalMinMax] = useState({});
 
@@ -60,7 +61,7 @@ const DashboardTab = ({ tabName, total, incomeExpense }) => {
 
   return (
     <div
-      className={styles.MenuWrapper}
+      className={`${styles.MenuWrapper} ${styles.ColumnWrapper}`}
       style={{
         width: "100%",
         display: "flex",
@@ -68,6 +69,12 @@ const DashboardTab = ({ tabName, total, incomeExpense }) => {
         justifyContent: "flex-start",
       }}
     >
+      <div className={tabStyles.BackButton} onClick={() => setActiveTab("")}>
+        <i
+          className="fa-solid fa-circle-arrow-left"
+          style={{ fontSize: "1.8rem" }}
+        ></i>
+      </div>
       <div className={styles.LeftWrapper}>
         <div style={{ fontSize: "32px", fontWeight: "bold" }}>
           All Transactions
