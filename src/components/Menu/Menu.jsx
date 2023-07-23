@@ -153,7 +153,7 @@ const Menu = ({ activeTab, setActiveTab }) => {
             </div>
           </li>
 
-          <li className={`${styles.MenuItem} ${styles.MenuItemMobile}`}>
+          <li className={styles.MenuItem}>
             <i className="fa-solid fa-qrcode"></i>
             <div className={styles.MenuItemText}>ScanQR</div>
           </li>
