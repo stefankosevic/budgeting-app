@@ -24,7 +24,7 @@ const Dashboard = () => {
   useEffect(() => {
     const getAllBalances = async () => {
       const { data } = await axios.get(
-        "http://localhost:5001/user/api/balance/all"
+        process.env.REACT_APP_API_URL + "/user/api/balance/all"
       );
       let totalIncome = 0;
       let totalExpense = 0;

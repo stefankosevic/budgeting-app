@@ -20,15 +20,21 @@ const MoneyDashboard = ({ tabName, setActiveTab }) => {
   const addBar = async (newBar) => {
     setBars([...bars, newBar]);
 
-    await axios.post("http://localhost:5001/user/api/balance", newBar);
+    await axios.post(
+      process.env.REACT_APP_API_URL + "/user/api/balance",
+      newBar
+    );
   };
 
   const deleteBar = async (barId) => {
     const oldBars = [...bars];
     const newBars = oldBars.filter((bar) => bar._id !== barId);
-    await axios.post("http://localhost:5001/user/api/balance/delete", {
-      id: barId,
-    });
+    await axios.post(
+      process.env.REACT_APP_API_URL + "/user/api/balance/delete",
+      {
+        id: barId,
+      }
+    );
     setBars([...newBars]);
   };
 

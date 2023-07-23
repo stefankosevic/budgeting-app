@@ -26,7 +26,7 @@ const DashboardTab = ({ setActiveTab, total, incomeExpense }) => {
   useEffect(() => {
     const getRecentBalances = async () => {
       const { data } = await axios.get(
-        "http://localhost:5001/user/api/balance/recent"
+        process.env.REACT_APP_API_URL + "/user/api/balance/recent"
       );
       setRecentBalances(data.data);
     };
