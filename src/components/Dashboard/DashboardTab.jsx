@@ -45,14 +45,18 @@ const DashboardTab = ({ setActiveTab, total, incomeExpense }) => {
     let maxExpense = 0;
 
     incomeExpense.incomes?.forEach((income) => {
-      if (income.type === TABS.MONTHLY_INCOME) minIncome += +income.amount;
-      if (income.type === TABS.ONE_TIME_INCOME) maxIncome += +income.amount;
+      if (income.type === TABS.MONTHLY_INCOME)
+        minIncome += +income.amount.replace(",", ".");
+      if (income.type === TABS.ONE_TIME_INCOME)
+        maxIncome += +income.amount.replace(",", ".");
     });
     maxIncome += minIncome;
 
     incomeExpense.expenses?.forEach((expense) => {
-      if (expense.type === TABS.MONTHLY_EXPENSE) minExpense += +expense.amount;
-      if (expense.type === TABS.ONE_TIME_EXPENSE) maxExpense += +expense.amount;
+      if (expense.type === TABS.MONTHLY_EXPENSE)
+        minExpense += +expense.amount.replace(",", ".");
+      if (expense.type === TABS.ONE_TIME_EXPENSE)
+        maxExpense += +expense.amount.replace(",", ".");
     });
     maxExpense += minExpense;
 

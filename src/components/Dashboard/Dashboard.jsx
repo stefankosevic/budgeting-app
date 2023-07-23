@@ -35,10 +35,10 @@ const Dashboard = () => {
       let totalExpense = 0;
 
       data.data.incomes.forEach(
-        (income) => (totalIncome += Number(income.amount))
+        (income) => (totalIncome += Number(income.amount.replace(",", ".")))
       );
       data.data.expenses.forEach(
-        (expense) => (totalExpense += Number(expense.amount))
+        (expense) => (totalExpense += Number(expense.amount.replace(",", ".")))
       );
 
       setMoney({

@@ -60,7 +60,7 @@ const MoneyDashboard = ({ tabName, setActiveTab }) => {
 
   const getTotal = () => {
     let result = 0;
-    bars.forEach((bar) => (result += Number(bar.amount)));
+    bars.forEach((bar) => (result += Number(bar.amount.replace(",", "."))));
     return result;
   };
 
