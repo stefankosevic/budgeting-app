@@ -20,7 +20,7 @@ const BalanceBox = ({ type, total }) => {
               : "#42AD00",
         }}
       >
-        din {total}
+        din {Math.round(total)}
       </div>
     </div>
   );

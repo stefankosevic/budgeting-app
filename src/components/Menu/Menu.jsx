@@ -7,6 +7,7 @@ const Menu = ({ activeTab, setActiveTab }) => {
   const [incomeDropdownOpen, setIncomeDropdownOpen] = useState(false);
   const [expenseDropdownOpen, setExpenseDropdownOpen] = useState(false);
   const navigate = useNavigate();
+
   const logout = () => {
     localStorage.removeItem("userId");
     navigate("/");
@@ -153,7 +154,7 @@ const Menu = ({ activeTab, setActiveTab }) => {
             </div>
           </li>
 
-          <li className={styles.MenuItem}>
+          <li className={styles.MenuItem} onClick={() => navigate("/scan")}>
             <i className="fa-solid fa-qrcode"></i>
             <div className={styles.MenuItemText}>ScanQR</div>
           </li>
