@@ -25,7 +25,7 @@ const QRScanner = () => {
           }
         );
         setTotalCash(total);
-        const totalRacun = data.data;
+        const totalRacun = total.data;
         await axios.post(process.env.REACT_APP_API_URL + "/user/api/balance", {
           title: "Racun",
           date: new Date().toLocaleDateString(),
