@@ -12,7 +12,22 @@ function App() {
   }, [navigate]);
 
   return (
-    <div className="App">
+    <div
+      className="App"
+      style={{
+        background: "linear-gradient(to right, #d9a7c7, #fffcdc)",
+      }}
+    >
+      <h1
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          paddingTop: "20px",
+        }}
+      >
+        Budgeting App
+      </h1>
       {isLogin && !localStorage.getItem("userId") ? (
         <Login changeActiveTab={() => setIsLogin(false)} />
       ) : (
