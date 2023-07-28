@@ -28,7 +28,6 @@ const Register = ({ changeActiveTab }) => {
       }
     );
 
-    // TODO: Jos malo
     if (data.success === true) {
       navigate("/dashboard");
     }
